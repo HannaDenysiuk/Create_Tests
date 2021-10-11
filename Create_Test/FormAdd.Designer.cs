@@ -38,6 +38,7 @@ namespace Create_Test
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nextQuestion = new System.Windows.Forms.Button();
             this.addQuestion = new System.Windows.Forms.Button();
             this.difficulty = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -52,7 +53,7 @@ namespace Create_Test
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.nextQuestion = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.difficulty)).BeginInit();
@@ -169,6 +170,20 @@ namespace Create_Test
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Question";
             // 
+            // nextQuestion
+            // 
+            this.nextQuestion.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.nextQuestion.Enabled = false;
+            this.nextQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nextQuestion.ForeColor = System.Drawing.Color.Green;
+            this.nextQuestion.Location = new System.Drawing.Point(424, 179);
+            this.nextQuestion.Name = "nextQuestion";
+            this.nextQuestion.Size = new System.Drawing.Size(163, 42);
+            this.nextQuestion.TabIndex = 17;
+            this.nextQuestion.Text = "Next Question";
+            this.nextQuestion.UseVisualStyleBackColor = false;
+            this.nextQuestion.Click += new System.EventHandler(this.nextQuestion_Click);
+            // 
             // addQuestion
             // 
             this.addQuestion.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -243,7 +258,7 @@ namespace Create_Test
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.MintCream;
+            this.groupBox1.BackColor = System.Drawing.Color.Beige;
             this.groupBox1.Controls.Add(this.countQuestion);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.textBox1);
@@ -313,19 +328,19 @@ namespace Create_Test
             this.label2.TabIndex = 9;
             this.label2.Text = "Author:";
             // 
-            // nextQuestion
+            // button2
             // 
-            this.nextQuestion.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.nextQuestion.Enabled = false;
-            this.nextQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nextQuestion.ForeColor = System.Drawing.Color.Green;
-            this.nextQuestion.Location = new System.Drawing.Point(424, 179);
-            this.nextQuestion.Name = "nextQuestion";
-            this.nextQuestion.Size = new System.Drawing.Size(163, 42);
-            this.nextQuestion.TabIndex = 17;
-            this.nextQuestion.Text = "Next Question";
-            this.nextQuestion.UseVisualStyleBackColor = false;
-            this.nextQuestion.Click += new System.EventHandler(this.nextQuestion_Click);
+            this.button2.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.button2.Enabled = false;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.ForeColor = System.Drawing.Color.Green;
+            this.button2.Location = new System.Drawing.Point(33, 547);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(351, 70);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "make the chosen answer correct";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // FormAdd
             // 
@@ -333,6 +348,7 @@ namespace Create_Test
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Ivory;
             this.ClientSize = new System.Drawing.Size(1213, 652);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.save);
             this.Controls.Add(this.nameOfFile);
@@ -382,5 +398,6 @@ namespace Create_Test
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button nextQuestion;
+        private System.Windows.Forms.Button button2;
     }
 }

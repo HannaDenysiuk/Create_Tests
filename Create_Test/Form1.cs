@@ -18,7 +18,6 @@ namespace Create_Test
             InitializeComponent();
         }
 
-        
         private void add_Click(object sender, EventArgs e)
         {
             FormAdd Add = new FormAdd();
@@ -27,7 +26,8 @@ namespace Create_Test
 
         private void edit_Click(object sender, EventArgs e)
         {
-
+            FormEdit edit = new FormEdit();
+            edit.ShowDialog();
         }
     }
 }
