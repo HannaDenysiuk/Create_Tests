@@ -41,22 +41,34 @@ namespace TestServer
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             //show groups
-            dataGridView1.DataSource = group.GetAllData().Select(g => new {id=g.Id, name_of_group=g.GroupName}).ToList();
+            dataGridView1.DataSource = group.GetAllData().Select(g => new { id = g.Id, name_of_group = g.GroupName }).ToList();
         }
 
         private void sToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //show all users
-            dataGridView1.DataSource = users.GetAllData().Select(u => new { id = u.Id, name = u.FName,surname =u.LName, 
-            login=u.Login,password=u.Password,isAdmin=u.IsAdmin}).ToList();
+            dataGridView1.DataSource = users.GetAllData().Select(u => new
+            {
+                id = u.Id,
+                name = u.FName,
+                surname = u.LName,
+                login = u.Login,
+                password = u.Password,
+                isAdmin = u.IsAdmin
+            }).ToList();
 
         }
 
         private void loadTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //show tests
-            dataGridView1.DataSource = tests.GetAllData().Select(t => new {id=t.Id,author=t.Author,
-            title=t.TestName,count_of_questions=t.QuestionCount}).ToList();
+            dataGridView1.DataSource = tests.GetAllData().Select(t => new
+            {
+                id = t.Id,
+                author = t.Author,
+                title = t.TestName,
+                count_of_questions = t.QuestionCount
+            }).ToList();
         }
 
         private void loadTestToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -71,10 +83,11 @@ namespace TestServer
                 using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
                     test = (Test)xs.Deserialize(fs);
-                    
+
                     tests.Add(test);
                     work.SaveChanges();
                 }
             }
+        }
     }
 }
