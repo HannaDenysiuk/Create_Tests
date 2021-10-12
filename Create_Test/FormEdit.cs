@@ -22,33 +22,30 @@ namespace Create_Test
         Question question;
         XmlSerializer xs = new XmlSerializer(typeof(Test));
         Test test;
-        string path = @"D:\IT_Step_Academy\Exam_CreateTests\Create_Tests\CreateNewTest\bin\Debug\Tests\";
+        string path;
         private void file_Click(object sender, EventArgs e)
         {
-            openFileDialog1.InitialDirectory = path;
-            openFileDialog1.FilterIndex = 0;
-            openFileDialog1.RestoreDirectory = true;
             openFileDialog1.Filter = "xml files (*.xml)|*.xml";
 
             DialogResult res = openFileDialog1.ShowDialog();
             if (res == DialogResult.OK)
             {
                 path = openFileDialog1.FileName;
-                this.Text = path;
-            }
-            using (FileStream fs = new FileStream(path, FileMode.Open))
-            {
-                test = (Test)xs.Deserialize(fs);
-            }
-            if (test != null)
-            {
-                foreach (var item in test.Question)
+
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
-                    listBox1.Items.Add(item.Description);
+                    test = (Test)xs.Deserialize(fs);
                 }
-                countQuestion.Value = Convert.ToInt32(test.QuestionCount);
-                textBox1.Text = test.Author;
-                textBox2.Text = test.TestName;
+                if (test != null)
+                {
+                    foreach (var item in test.Question)
+                    {
+                        listBox1.Items.Add(item.Description);
+                    }
+                    countQuestion.Value = Convert.ToInt32(test.QuestionCount);
+                    textBox1.Text = test.Author;
+                    textBox2.Text = test.TestName;
+                }
             }
         }
 

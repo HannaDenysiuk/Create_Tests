@@ -54,6 +54,7 @@ namespace Create_Test
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.difficulty)).BeginInit();
@@ -399,5 +400,6 @@ namespace Create_Test
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button nextQuestion;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

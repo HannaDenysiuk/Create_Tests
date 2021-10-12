@@ -17,7 +17,6 @@ namespace Create_Test
     {
         Test test = new Test();
         Question question;
-        //List<Question> questions = new List<Question>();
         XmlSerializer xs = new XmlSerializer(typeof(Test));
         string path = @"D:\IT_Step_Academy\Exam_CreateTests\Create_Tests\CreateNewTest\bin\Debug\Tests\";
         public FormAdd()
@@ -86,30 +85,43 @@ namespace Create_Test
         }
         private void save_Click(object sender, EventArgs e)
         {
-            if (nameOfFile.Text != "")
-            {
-                nextQuestion_Click(sender,e); //щоб зберегти останнє запитання
+            nextQuestion_Click(sender, e); //щоб зберегти останнє запитання
 
-                test.QuestionCount = countQuestion.Value.ToString();
-                path += nameOfFile.Text + ".xml";
-                if (File.Exists(path))
-                    using (FileStream fs = new FileStream(path, FileMode.Truncate))
-                    {
-                        xs.Serialize(fs, test);
-                    }
-                else
-                    using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-                    {
-                        xs.Serialize(fs, test);
-                    }
+              test.QuestionCount = countQuestion.Value.ToString();
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
+                {
+                    sw.Write(textBox1.Text);
+                }
+            }
+
+
+            //if (nameOfFile.Text != "")
+            //{
+            //    nextQuestion_Click(sender,e); //щоб зберегти останнє запитання
+
+            //    test.QuestionCount = countQuestion.Value.ToString();
+            //    path += nameOfFile.Text + ".xml";
+            //    if (File.Exists(path))
+            //        using (FileStream fs = new FileStream(path, FileMode.Truncate))
+            //        {
+            //            xs.Serialize(fs, test);
+            //        }
+            //    else
+            //        using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            //        {
+            //            xs.Serialize(fs, test);
+            //        }
                 //очищаємо інші поля
                 textBox1.Clear();
                 textBox2.Clear();
                 nameOfFile.Clear();
                 countQuestion.Value = 0;
-            }
-            else
-                MessageBox.Show("Give the file a name without an extension");
+            //}
+            //else
+            //    MessageBox.Show("Give the file a name without an extension");
         }
 
         private void button2_Click(object sender, EventArgs e)
