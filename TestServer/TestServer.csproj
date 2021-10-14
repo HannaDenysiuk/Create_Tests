@@ -57,25 +57,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBase.Designer.cs">
+      <DependentUpon>DataBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDataBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDataBase.Designer.cs">
-      <DependentUpon>FormDataBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataBase.resx">
+      <DependentUpon>DataBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDataBase.resx">
-      <DependentUpon>FormDataBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,6 +101,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CreateNewTest\CreateNewTest.csproj">
+      <Project>{55513826-1cba-40d2-8829-af4cf2272ee5}</Project>
+      <Name>CreateNewTest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL_TestSystem\DAL_TestSystem.csproj">
       <Project>{C66FCE63-9697-49C9-ADAD-44C2C977BD9F}</Project>
       <Name>DAL_TestSystem</Name>

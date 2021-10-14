@@ -36,7 +36,7 @@ namespace TestServer
             user1 = repoUser.FirstOrDefault(u => u.Login == textBox1.Text && u.Password == textBox2.Text);
             if (user1 != null && user1.IsAdmin == true)
             {
-                FormDataBase db = new FormDataBase(work, user1);
+                DataBase db = new DataBase(work);
                 db.ShowDialog();
                 work.SaveChanges();
             }
