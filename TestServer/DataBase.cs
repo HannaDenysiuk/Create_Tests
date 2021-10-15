@@ -410,8 +410,10 @@ namespace TestServer
 
                 IGenericRepository<DAL_TestSystem.Question> questions;
                 IGenericRepository<DAL_TestSystem.Answer> answers;
+
                 questions = work.Repository<DAL_TestSystem.Question>();
                 answers = work.Repository<DAL_TestSystem.Answer>();
+
                 foreach (var item in test.Question)
                 {//записую всі по черзі питання з тесту
                     DAL_TestSystem.Question q = new DAL_TestSystem.Question()

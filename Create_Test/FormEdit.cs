@@ -82,11 +82,16 @@ namespace Create_Test
         {
             if (textBox5.Text != "")
             {
-
                 question.Answer[listBox2.SelectedIndex].Description = textBox5.Text;
                 question.Answer[listBox2.SelectedIndex].IsRight = checkBox1.Checked.ToString();
                 listBox2.SelectedItem = textBox5.Text;
 
+                listBox2.Items.Clear();
+                foreach (var item in question.Answer)
+                {
+                    listBox2.Items.Add(item.Description);
+                }
+                textBox5.Clear();
                 Answer an = question.Answer.FirstOrDefault(a => a.IsRight == "True");
                 if (an == null) //якщо нема жодної правильної відповіді
                     question.Answer[listBox2.SelectedIndex].IsRight = "True";
@@ -114,9 +119,13 @@ namespace Create_Test
             {
                 test.Question[listBox1.SelectedIndex].Description = textBox4.Text;
                 test.Question[listBox1.SelectedIndex].Difficulty = difficulty.Value.ToString();
-                listBox1.SelectedItem = textBox4.Text;
-                //question.Answer[listBox2.SelectedIndex].Description = textBox5.Text;
-               
+                
+                textBox4.Clear();
+                listBox1.Items.Clear();
+                foreach (var item in test.Question)
+                {
+                    listBox1.Items.Add(item.Description);
+                }
             }
             else MessageBox.Show("Question cann't be null");
         }
