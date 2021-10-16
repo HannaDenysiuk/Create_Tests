@@ -1,7 +1,7 @@
 ﻿
 namespace Client
 {
-    partial class Form1
+    partial class Client
     {
         /// <summary>
         /// Required designer variable.
@@ -48,18 +48,18 @@ namespace Client
             this.SingIn.Controls.Add(this.cancel);
             this.SingIn.Controls.Add(this.ok);
             this.SingIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SingIn.Location = new System.Drawing.Point(57, 54);
+            this.SingIn.Location = new System.Drawing.Point(57, 44);
             this.SingIn.Margin = new System.Windows.Forms.Padding(2);
             this.SingIn.Name = "SingIn";
             this.SingIn.Padding = new System.Windows.Forms.Padding(2);
-            this.SingIn.Size = new System.Drawing.Size(433, 172);
+            this.SingIn.Size = new System.Drawing.Size(433, 199);
             this.SingIn.TabIndex = 2;
             this.SingIn.TabStop = false;
             this.SingIn.Text = "Sing In User";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(145, 73);
+            this.textBox2.Location = new System.Drawing.Point(142, 81);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(264, 30);
@@ -68,7 +68,7 @@ namespace Client
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 73);
+            this.label2.Location = new System.Drawing.Point(23, 81);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 25);
@@ -77,7 +77,7 @@ namespace Client
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(145, 37);
+            this.textBox1.Location = new System.Drawing.Point(142, 45);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(264, 30);
@@ -86,7 +86,7 @@ namespace Client
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 37);
+            this.label1.Location = new System.Drawing.Point(54, 45);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 25);
@@ -96,7 +96,7 @@ namespace Client
             // cancel
             // 
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancel.Location = new System.Drawing.Point(286, 111);
+            this.cancel.Location = new System.Drawing.Point(284, 128);
             this.cancel.Margin = new System.Windows.Forms.Padding(2);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(122, 43);
@@ -107,7 +107,7 @@ namespace Client
             // ok
             // 
             this.ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ok.Location = new System.Drawing.Point(145, 111);
+            this.ok.Location = new System.Drawing.Point(143, 128);
             this.ok.Margin = new System.Windows.Forms.Padding(2);
             this.ok.Name = "ok";
             this.ok.Size = new System.Drawing.Size(122, 43);
@@ -116,14 +116,15 @@ namespace Client
             this.ok.UseVisualStyleBackColor = true;
             this.ok.Click += new System.EventHandler(this.ok_Click);
             // 
-            // Form1
+            // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 293);
             this.Controls.Add(this.SingIn);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Client";
+            this.Text = "Client";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Client_FormClosing);
             this.SingIn.ResumeLayout(false);
             this.SingIn.PerformLayout();
             this.ResumeLayout(false);

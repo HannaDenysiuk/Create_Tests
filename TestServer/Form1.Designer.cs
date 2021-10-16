@@ -108,7 +108,7 @@ namespace TestServer
             // ok
             // 
             this.ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ok.Location = new System.Drawing.Point(145, 111);
+            this.ok.Location = new System.Drawing.Point(147, 111);
             this.ok.Margin = new System.Windows.Forms.Padding(2);
             this.ok.Name = "ok";
             this.ok.Size = new System.Drawing.Size(122, 43);

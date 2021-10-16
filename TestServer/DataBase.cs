@@ -48,6 +48,7 @@ namespace TestServer
                 groups.Add(group);
                 work.SaveChanges();
 
+
                 dataGridView2.DataSource = groups.GetAllData().Select(g => new
                 { id = g.Id, nameGroup = g.GroupName }).ToList();
                 textBox4NameGroup.Clear();
@@ -163,7 +164,9 @@ namespace TestServer
             {
                 int id = (int)dataGridView6.SelectedRows[0].Cells[0].Value;
 
-                groups.FirstOrDefault(g => g.GroupName == comboBox2.SelectedItem.ToString()).Users.Add(users.FirstOrDefault(u => u.Id == id));
+                groups.FirstOrDefault(g => g.GroupName == comboBox2.SelectedItem.ToString()).
+                    Users.Add(users.FirstOrDefault(u => u.Id == id));
+
                 work.SaveChanges();
 
                 comboBox2_SelectedIndexChanged(sender,e);
@@ -454,18 +457,20 @@ namespace TestServer
         {
             int id = groups.FirstOrDefault(g => g.GroupName == comboBox3.SelectedItem.ToString()).Id;
 
-            dataGridView15.DataSource = testsGroups.FindAll(g => g.GroupId == id).
-                Select(tg => new
+
+            dataGridView15.DataSource= testsGroups.GetAllData().Where(g => g.GroupId == id).
+                Select(t => new
                 {
-                    id = tg.Id,
-                    testId = tg.TestId,
-                    groupId = tg.GroupId,
-                    date = tg.Date.ToShortDateString()
+                    id = t.Test.Id,
+                    author = t.Test.Author,
+                    title = t.Test.TestName,
+                    count_of_questions = t.Test.QuestionCount,
                 }).ToList();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+
+    private void button1_Click(object sender, EventArgs e)
+        {//add test to group
             try
             {
                 int id = (int)dataGridView14.SelectedRows[0].Cells[0].Value;

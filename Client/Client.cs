@@ -10,16 +10,22 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class Form1 : Form
+    public partial class Client : Form
     {
-        public Form1()
+        public Client()
         {
             InitializeComponent();
         }
-
+        private const int port = 8888;
+        private const string server = "127.0.0.1";
         private void ok_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Client_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //send "close"
         }
     }
 }
