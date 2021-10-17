@@ -1,7 +1,8 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 namespace Xml2CSharp
 {
-    [XmlRoot(ElementName = "Answer")]
+	[XmlRoot(ElementName = "Answer")]
 	public class Answer
 	{
 		[XmlElement(ElementName = "Description")]

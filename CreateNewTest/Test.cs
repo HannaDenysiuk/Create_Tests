@@ -3,8 +3,7 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 namespace Xml2CSharp
 {
-
-    [XmlRoot(ElementName = "Test")]
+	[XmlRoot(ElementName = "Test")]
 	public class Test
 	{
 		[XmlElement(ElementName = "Author")]

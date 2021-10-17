@@ -50,21 +50,24 @@ namespace Client
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(12, 569);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(338, 57);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "PASS TESTS";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.Location = new System.Drawing.Point(668, 569);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(338, 57);
             this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
+            this.button2.Text = "LOAD TESTS";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 

@@ -48,11 +48,11 @@ namespace Client
             this.SingIn.Controls.Add(this.cancel);
             this.SingIn.Controls.Add(this.ok);
             this.SingIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SingIn.Location = new System.Drawing.Point(57, 44);
+            this.SingIn.Location = new System.Drawing.Point(73, 56);
             this.SingIn.Margin = new System.Windows.Forms.Padding(2);
             this.SingIn.Name = "SingIn";
             this.SingIn.Padding = new System.Windows.Forms.Padding(2);
-            this.SingIn.Size = new System.Drawing.Size(433, 199);
+            this.SingIn.Size = new System.Drawing.Size(433, 228);
             this.SingIn.TabIndex = 2;
             this.SingIn.TabStop = false;
             this.SingIn.Text = "Sing In User";
@@ -120,7 +120,7 @@ namespace Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 293);
+            this.ClientSize = new System.Drawing.Size(579, 344);
             this.Controls.Add(this.SingIn);
             this.Name = "Client";
             this.Text = "Client";

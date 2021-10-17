@@ -401,7 +401,8 @@ namespace TestServer
             {
                 //створюю тест
                 DAL_TestSystem.Test tdb= new DAL_TestSystem.Test()
-                { Author = test.Author, 
+                {
+                    Author = test.Author, 
                     TestName = test.TestName,
                     QuestionCount = Convert.ToInt32(test.QuestionCount)
                 };
@@ -409,34 +410,37 @@ namespace TestServer
                 tests.Add(tdb);//додаю
                 work.SaveChanges();//зберігаю зміни
                 //тягну його id
-                int idTEst = tests.GetAllData().Max(t => t.Id);
+                int idTEst = tests.GetAllData().Max(i => i.Id);
 
                 IGenericRepository<DAL_TestSystem.Question> questions;
                 IGenericRepository<DAL_TestSystem.Answer> answers;
 
                 questions = work.Repository<DAL_TestSystem.Question>();
                 answers = work.Repository<DAL_TestSystem.Answer>();
+                //last added test
+                var tmpt = tests.FirstOrDefault(t => t.Id == idTEst);
 
                 foreach (var item in test.Question)
-                {//записую всі по черзі питання з тесту
+                {
+                    //записую всі по черзі питання з тесту
                     DAL_TestSystem.Question q = new DAL_TestSystem.Question()
                     {
                         Description = item.Description,
                         Difficalty = Convert.ToInt32(item.Difficulty),
-                        TestId = idTEst,
+                        Test=tmpt
                     };
                     questions.Add(q);//додаю
                     work.SaveChanges();//зберігаю зміни
                                        //тягну його id
                     int idq = questions.GetAllData().Max(x => x.Id);
-
+                    var tmpq = questions.FirstOrDefault(y => y.Id == idq);
                     foreach (var i in item.Answer)
                     {//додаю всі варіанти відповідей конкретного питання
                         DAL_TestSystem.Answer answer = new DAL_TestSystem.Answer()
                         {
                             Description = i.Description,
                             IsRight = Convert.ToBoolean(i.IsRight),
-                            QuestionId = idq
+                            Question = tmpq
                         };
                         answers.Add(answer);//додаю
                         work.SaveChanges();//зберігаю зміни

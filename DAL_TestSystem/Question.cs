@@ -1,4 +1,6 @@
-﻿namespace DAL_TestSystem
+﻿using System;
+
+namespace DAL_TestSystem
 {
     public class Question
     {

@@ -9,6 +9,7 @@ namespace TestServer
 {
     public class Client : IDisposable
     {
+        public int? UserId { get; set; }
         public Socket ClientSocket { get; set; }
         public void Dispose()
         {
