@@ -28,18 +28,29 @@ namespace Client
             InitializeComponent();
             info = info1;
             socket = sendSocket;
+            label1.Text = info.Lname + "  " + info.Fname;
+            if (info.ListOfGroups != null)
+            {
+
+                foreach (var item in info.ListOfGroups)
+                {
+                    comboBox1.Items.Add(item);
+                }
+                if (comboBox1.Items.Count > 0)
+                {
+                    comboBox1.SelectedIndex = 0;
+                    info.Group = comboBox1.SelectedItem.ToString();
+                }
+            }
             Task.Factory.StartNew(() =>
             {
                 while (true)
                 {
-                    
-                        MessageBox.Show("reseive answer from server1");
+                       // MessageBox.Show("reseive answer from server1");
                         Byte[] receiveByte = new byte[16384];
                         sendSocket.Receive(receiveByte);
-                        MessageBox.Show("reseive answer from server2");
+                        //MessageBox.Show("reseive answer from server2");
 
-                        DataSet dt = null;
-                        
                     using (MemoryStream ms = new MemoryStream(receiveByte))
                     {
                         BinaryFormatter bFormat = new BinaryFormatter();
@@ -48,27 +59,27 @@ namespace Client
                         {
                             if (info.Buffer != null)
                             {
+                                DataSet ds = null;
                                 using (MemoryStream ms1 = new MemoryStream(info.Buffer))
                                 {
-                                    MessageBox.Show("reseive answer from server3\n"+info.Buffer.Length);
-                                    BinaryFormatter bFormat1 = new BinaryFormatter();
-                                    dt = bFormat1.Deserialize(ms1) as DataSet;
+                                   // MessageBox.Show("reseive answer from server3\n"+info.Buffer.Length);
+                                  
+                                    ds = bFormat.Deserialize(ms1) as DataSet;
                                 }
-                                if (dt != null)
+                                if (ds != null)
                                 {
-                                    MessageBox.Show("Tests");
-                                    dataGridView1.Invoke(new Action(()=>dataGridView1.DataSource = dt.Tables[0]));
-                                    //dataGridView1.ColumnCount = dt.Columns.Count;
-                                    //dataGridView1.RowCount = dt.Rows.Count;
-                                    //for (int i = 0; i < dataGridView1.RowCount; i++)
-                                    //{
-                                    //    for (int j = 0; j < dataGridView1.ColumnCount; j++)
-                                    //    {
-                                    //        dataGridView1[j, i].Value = dt.Rows[i][j].ToString();
-                                    //    }
-                                    //}
+                                    //MessageBox.Show("Tests");
+                                    dataGridView1.Invoke(new Action(()=>dataGridView1.DataSource = ds.Tables[0]));
+                                   button1.Invoke(new Action(() => button1.Enabled = true));
                                 }
                             }
+                        }
+                        if(info.Msg=="pass test")
+                        {
+
+
+
+
                         }
                     }
                 }
@@ -91,7 +102,19 @@ namespace Client
         private void button2_Click(object sender, EventArgs e)
         {
             //load tests
-            SendMes("load tests");
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+                info.Group = comboBox1.SelectedItem.ToString();
+
+                SendMes("load tests");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            info.IdTest =Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+            SendMes("pass test");
         }
     }
 }

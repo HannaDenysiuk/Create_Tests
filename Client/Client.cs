@@ -43,6 +43,7 @@ namespace Client
                 BinaryFormatter bf = new BinaryFormatter();
                 byte[] sendByte = new byte[1024];
                 Info info = new Info();
+                info.ListOfGroups = new List<string>();
                 info.Login= textBox1.Text;
                 info.Password = textBox2.Text;
                 info.Msg = "";
@@ -62,17 +63,17 @@ namespace Client
                         Byte[] receiveByte = new byte[16384];
                         sendSocket.Receive(receiveByte);
                         if(!flag)
-                        { string mes;
+                        { 
                             using (var memStream = new MemoryStream())
                             {
                                 var binForm = new BinaryFormatter();
                                 memStream.Write(receiveByte, 0, receiveByte.Length);
                                 memStream.Seek(0, SeekOrigin.Begin);
-                                mes = (string)binForm.Deserialize(memStream);
+                                info = (Info)binForm.Deserialize(memStream);
                             }
-                            if (mes == "isUser")//якщо він є в базі
+                            if (info.Msg == "isUser")//якщо він є в базі
                             {
-                                MessageBox.Show("isUser");
+                                //MessageBox.Show("isUser Client");
                                 break;
                             }
                         }

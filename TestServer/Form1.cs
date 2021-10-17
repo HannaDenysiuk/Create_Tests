@@ -23,6 +23,8 @@ namespace TestServer
         static GenericUnitOfWork work;
         static IGenericRepository<User> repoUser;
         static IGenericRepository<Test> tests;
+        static IGenericRepository<Group> groups;
+        static IGenericRepository<TestGroup> testGroups;
 
         User user1 = null;
         static Socket listeningSocket;// only for listen
@@ -34,6 +36,11 @@ namespace TestServer
             InitializeComponent();
             work = new GenericUnitOfWork(new Context(ConfigurationManager.ConnectionStrings["conStr"].ConnectionString));
             repoUser = work.Repository<User>();
+            tests = work.Repository<Test>();
+            groups = work.Repository<Group>();
+
+
+            testGroups = work.Repository<TestGroup>();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -139,14 +146,25 @@ namespace TestServer
                 //будемо дивитися на повідомлення що хоче отримати користувач
                 if (info.Msg == "")//щойно зайшов
                 {
-                    MessageBox.Show("isUser");
                     info.IsRegistered = true;
                     info.UserId = us.Id;
+                    info.Lname = us.LName;
+                    info.Fname = us.FName;
+                   // MessageBox.Show("isUser S1");
+                    info.ListOfGroups = new List<string>();
+                    info.ListOfGroups.AddRange(us.Groups.Select(item => item.GroupName));//всі групи в яких є користувач
+                    //string str = "";
+                    //foreach (var item in info.ListOfGroups)
+                    //{
+                    //    str+= item.ToString() ;
+                    //}
+                    //MessageBox.Show(str);
                     cl.UserId = us.Id;
-                    string mes = "isUser"; //посилаємо сигнал щоб відкрилася інша форма
+                    info.Msg = "isUser"; //посилаємо сигнал щоб відкрилася інша форма
+                    
                     using (var ms = new MemoryStream())
                     {
-                        bf.Serialize(ms, mes);
+                        bf.Serialize(ms, info);
                         sendByte = ms.ToArray();
                     }
                     cl.ClientSocket.Send(sendByte);
@@ -154,28 +172,30 @@ namespace TestServer
                 }
                 if (info.Msg == "load tests")//натиснув кнопку показати тести які він має здати
                 {
-                    MessageBox.Show("load tests");
+                    //MessageBox.Show("load tests");
                     info.Mark = -1;
                     
-                    tests = work.Repository<Test>();
-                    //
-                    var list = tests.GetAllData().Select(t => new
-                    {
-                        id = t.Id,
-                        author = t.Author,
-                        title = t.TestName,
-                        count_of_questions = t.QuestionCount
-                    }).ToList();
-
                     DataTable dt = new DataTable();
                     dt.Columns.Add("Id", typeof(Int32));
                     dt.Columns.Add("Author", typeof(string));
                     dt.Columns.Add("TestName", typeof(string));
                     dt.Columns.Add("QuestionCount", typeof(Int32));
 
-                    foreach (var item in list)
+                    //дістаємо id групи яку хоче користувач подивитися здачу тестів
+                    int grId = groups.FirstOrDefault(g => g.GroupName == info.Group).Id;
+                    try
                     {
-                        dt.Rows.Add(item.id, item.author, item.title, item.count_of_questions);
+                        foreach (TestGroup i in testGroups.GetAllData().Where(g => g.GroupId == grId))
+                        {
+                            DAL_TestSystem.Test item = tests.FirstOrDefault(t => t.Id == i.TestId);
+                            dt.Rows.Add(item.Id, item.Author, item.TestName, item.QuestionCount);
+
+                            //dt.Rows.Add(i.Test.Id, i.Test.Author, i.Test.TestName, i.Test.QuestionCount);
+                        }
+                    }
+                    catch
+                    {
+
                     }
                     DataSet ds = new DataSet();
                     ds.Tables.Add(dt);
@@ -195,18 +215,16 @@ namespace TestServer
                         sendByte = ms.ToArray();
                     }
                     cl.ClientSocket.Send(sendByte);//send message
-                    MessageBox.Show("send list of Tests\n"+outList.Length);
+                   // MessageBox.Show("send list of Tests\n"+outList.Length);
                     return;
                 }
                 if (info.Msg == "pass test")
                 {
-                    MessageBox.Show("TestServer");
+                    MessageBox.Show("TestServer Pass");
                     //здача тесту
-                    info.Msg = "get result";
                     tests = work.Repository<Test>();
-                   var test1 = tests.FirstOrDefault(t => t.Id == info.IdTest);
-                    //info.Test = new Xml2CSharp.Test() { Author = test1.Author, QuestionCount = test1.QuestionCount.ToString() };
-
+                   DAL_TestSystem.Test test1 = tests.FirstOrDefault(t => t.Id == info.IdTest);
+                    
                     using (var ms = new MemoryStream())
                     {
                         //відправляємо тест

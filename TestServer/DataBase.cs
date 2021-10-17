@@ -478,6 +478,7 @@ namespace TestServer
             try
             {
                 int id = (int)dataGridView14.SelectedRows[0].Cells[0].Value;
+                
                 testsGroups.Add(new TestGroup()
                 {
                     Date = DateTime.Now,
