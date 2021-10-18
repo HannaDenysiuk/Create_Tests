@@ -76,32 +76,36 @@ namespace Client
                         }
                         if(info.Msg=="pass test")
                         {
-
-
-
-
+                            PassTest pt = new PassTest(info);
+                            pt.ShowDialog();
+                            //send answers
+                            SendMes("get result");
+                        }
+                        if(info.Msg=="get result" && info.Mark!=null)
+                        {
+                            info.Msg = "";
+                            MessageBox.Show("Your result: "+info.Mark+"%");
                         }
                     }
                 }
             });
         }
-        static private void SendMes(string m)
+        private void SendMes(string m)
         {
             BinaryFormatter bf = new BinaryFormatter();
-            byte[] sendByte = new byte[1024];
+            byte[] sendByte = new byte[16384];
             info.Msg = m;
-            info.IdTest = 3;
             using (var ms = new MemoryStream())
             {
                 bf.Serialize(ms, info);
                 sendByte = ms.ToArray();
             }
             socket.Send(sendByte);//send message
-            MessageBox.Show("send load tests from client");
         }
         private void button2_Click(object sender, EventArgs e)
         {
             //load tests
+            dataGridView1.Rows.Clear();
             if (comboBox1.Items.Count > 0)
             {
                 comboBox1.SelectedIndex = 0;
@@ -113,6 +117,7 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
+            info.Mark = null;
             info.IdTest =Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
             SendMes("pass test");
         }

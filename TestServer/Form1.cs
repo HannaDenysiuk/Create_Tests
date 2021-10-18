@@ -25,7 +25,9 @@ namespace TestServer
         static IGenericRepository<Test> tests;
         static IGenericRepository<Group> groups;
         static IGenericRepository<TestGroup> testGroups;
-
+        static  IGenericRepository<Answer> answers;
+        static IGenericRepository<Result> res;
+        static IGenericRepository<UserAnswer> userAnswers;
         User user1 = null;
         static Socket listeningSocket;// only for listen
        
@@ -39,6 +41,7 @@ namespace TestServer
             tests = work.Repository<Test>();
             groups = work.Repository<Group>();
 
+            userAnswers = work.Repository<UserAnswer>();
 
             testGroups = work.Repository<TestGroup>();
         }
@@ -146,7 +149,7 @@ namespace TestServer
                 //будемо дивитися на повідомлення що хоче отримати користувач
                 if (info.Msg == "")//щойно зайшов
                 {
-                    info.IsRegistered = true;
+                    //info.IsRegistered = true;
                     info.UserId = us.Id;
                     info.Lname = us.LName;
                     info.Fname = us.FName;
@@ -173,7 +176,7 @@ namespace TestServer
                 if (info.Msg == "load tests")//натиснув кнопку показати тести які він має здати
                 {
                     //MessageBox.Show("load tests");
-                    info.Mark = -1;
+                    info.Mark = 0;
                     
                     DataTable dt = new DataTable();
                     dt.Columns.Add("Id", typeof(Int32));
@@ -220,11 +223,29 @@ namespace TestServer
                 }
                 if (info.Msg == "pass test")
                 {
-                    MessageBox.Show("TestServer Pass");
+                    //MessageBox.Show("TestServer Pass");
                     //здача тесту
+                    answers = work.Repository<Answer>();
                     tests = work.Repository<Test>();
-                   DAL_TestSystem.Test test1 = tests.FirstOrDefault(t => t.Id == info.IdTest);
-                    
+                    DAL_TestSystem.Test test1 = tests.FirstOrDefault(t => t.Id == info.IdTest);
+
+                    Dictionary<int, List<string>> listAnswers = new Dictionary<int, List<string>>();
+                    Dictionary<int, string> questions = new Dictionary<int, string>();
+
+                    foreach (var item in test1.Questions)
+                    {
+                        var answ = answers.GetAllData().Where(a => a.QuestionId == item.Id);
+                        List<string> anss = new List<string>();
+                        foreach (var i in answ)
+                        {
+                            anss.Add(i.Description);
+                        }
+                        listAnswers.Add(item.Id, anss);
+                       
+                        questions.Add(item.Id,item.Description);
+                    }
+                    info.Answers = listAnswers;
+                    info.Questions = questions;
                     using (var ms = new MemoryStream())
                     {
                         //відправляємо тест
@@ -237,43 +258,43 @@ namespace TestServer
                 if (info.Msg == "get result")
                 {
                     // тут треба визначити оцінку і записати в базу даних
-
+                   // MessageBox.Show("server get result");
                     //
                     //додаємо відповіді користувача в базу
-                    IGenericRepository<UserAnswer> userAnswers;
-                    userAnswers = work.Repository<UserAnswer>();
-                    //foreach (var item in info.Answers)
-                    //{
-                    //    userAnswers.Add(new UserAnswer()
-                    //    {
-                    //        User = info.User,
-                    //        Answer = item,
-                    //        Date = DateTime.Now
-                    //    });
-                    //}
+                    
+                    answers = work.Repository<Answer>();
+                    foreach (var item in info.UserAnswers)
+                    {
+                        userAnswers.Add(new UserAnswer()
+                        {
+                            User = us,
+                            Answer = answers.FirstOrDefault(a=>a.Description==item),
+                            Date = DateTime.Now
+                        });
+                    }
+                    work.SaveChanges();
+                   // MessageBox.Show("wrote users answers");
                     //рахуємо результат
                     CalculateMark(info);
                     //результат здачі тесту
-                    IGenericRepository<Result> res;
-                    res = work.Repository<Result>();
-                    //info.Mark = res.FirstOrDefault(u => u.UserId == info.User.Id && u.TestId == info.IdTest).Rate;
-                   // info.Test = null;
-                    //info.Answers = null;
-                    info.Msg = "load tests";
-                    info.IdTest = -1;
+                    //треба брати по самій свіжій даті
+                    ////
+                    info.Mark = res.GetAllData().OrderByDescending(d=>d.Date.TimeOfDay).FirstOrDefault(u => u.UserId == info.UserId && u.TestId == info.IdTest).Rate;
+                   
                     using (var ms = new MemoryStream())
                     {
                         //відправляємо назви список тестів
                         bf.Serialize(ms, info);
                         sendByte = ms.ToArray();
                     }
+                   // MessageBox.Show("send ressult to client");
                     cl.ClientSocket.Send(sendByte);//send message
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("else");
+                //MessageBox.Show("else");
                 string mes = "You aren't registered.\nTry again.";
                 using (var ms = new MemoryStream())
                 {
@@ -290,32 +311,33 @@ namespace TestServer
         {
             double mark = 0;
             int value = 0, failed = 0;
-            //foreach (var item in inf.Test.Questions)
-            //{
-            //    value += item.Difficalty;
-            //}
-            IGenericRepository<Answer> answers;
-            answers = work.Repository<Answer>();
-            //foreach (var item in inf.Answers)
-            //{
-            //    var ans = answers.FirstOrDefault(a => a.QuestionId == item.QuestionId);
-            //    if (item.IsRight != ans.IsRight)
-            //    {
-            //        failed += ans.Question.Difficalty;
-            //    }
-            //}
+            DAL_TestSystem.Test test = tests.FirstOrDefault(t => t.Id == inf.IdTest);
+            
+            foreach (var item in test.Questions)
+            {
+                value += item.Difficalty; //додаємо вагу всіх питань
+                int id1 = answers.FirstOrDefault(a => a.QuestionId == item.Id && a.IsRight == true).Id;
+                //треба брати по самій свіжій даті
+                int id2 = userAnswers.GetAllData().OrderByDescending(d => d.Date.TimeOfDay).FirstOrDefault(u => u.Answer.QuestionId == item.Id).Answer.Id;
+                if (id1 != id2)
+                {
+                    failed += item.Difficalty;//віднімаємо невірні
+                }
+            }
+
             //рахуємо результат
-            mark = ((value = failed) * 100) / value;
+            mark = (value - failed) * 100 / value;
+           
             //add to data base
-            IGenericRepository<Result> res;
             res = work.Repository<Result>();
             res.Add(new Result()
             {
                 Date = DateTime.Now,
-                ///Test = inf.Test,
-               // User = inf.User,
+                Test = test,
+                User = repoUser.FirstOrDefault(u => u.Login == inf.Login && u.Password == inf.Password),
                 Rate = mark
             });
+            work.SaveChanges();
         }
         private void cancel_Click(object sender, EventArgs e)
         {
