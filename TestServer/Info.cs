@@ -10,7 +10,6 @@ namespace TestServer
     public class Info
     {
         public double? Mark { get; set; }
-
         public List<string> ListOfGroups { get; set; }
         public string Group { get; set; }
         public int? IdTest { get; set; }
@@ -18,7 +17,6 @@ namespace TestServer
         public Dictionary<int, List<string>> Answers { get; set; }//answers for pass// int - IdQuestion
         public List<string> UserAnswers { get; set; }
         public byte[] Buffer { get; set; }//DataSet table
-        public bool? IsRegistered { get; set; }
         public string Password { get; set; }
         public string Login { get; set; }
         public string Lname { get; set; }

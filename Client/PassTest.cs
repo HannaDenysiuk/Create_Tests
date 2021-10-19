@@ -37,6 +37,7 @@ namespace Client
             {
                 //дописувати в інфо відповіді
                 info.UserAnswers.Add(listBox1.SelectedItem.ToString());
+
                 if (info.Questions.Count > 1)
                 {
                     info.Questions.Remove(info.Questions.First().Key);
@@ -48,6 +49,7 @@ namespace Client
                 }
                 else
                 {
+                    //якщо питань більше немає
                     this.Close();
                 }
             }

@@ -47,7 +47,7 @@ namespace Client
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(994, 461);
+            this.dataGridView1.Size = new System.Drawing.Size(831, 461);
             this.dataGridView1.TabIndex = 0;
             // 
             // button1
@@ -65,7 +65,7 @@ namespace Client
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(668, 569);
+            this.button2.Location = new System.Drawing.Point(505, 569);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(338, 57);
             this.button2.TabIndex = 2;
@@ -87,7 +87,7 @@ namespace Client
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(639, 30);
+            this.label2.Location = new System.Drawing.Point(476, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 25);
             this.label2.TabIndex = 4;
@@ -97,7 +97,7 @@ namespace Client
             // 
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(737, 29);
+            this.comboBox1.Location = new System.Drawing.Point(574, 31);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(269, 28);
             this.comboBox1.TabIndex = 5;
@@ -106,7 +106,7 @@ namespace Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 647);
+            this.ClientSize = new System.Drawing.Size(857, 647);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

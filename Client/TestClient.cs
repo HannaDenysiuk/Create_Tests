@@ -46,10 +46,8 @@ namespace Client
             {
                 while (true)
                 {
-                       // MessageBox.Show("reseive answer from server1");
                         Byte[] receiveByte = new byte[16384];
                         sendSocket.Receive(receiveByte);
-                        //MessageBox.Show("reseive answer from server2");
 
                     using (MemoryStream ms = new MemoryStream(receiveByte))
                     {
@@ -62,24 +60,24 @@ namespace Client
                                 DataSet ds = null;
                                 using (MemoryStream ms1 = new MemoryStream(info.Buffer))
                                 {
-                                   // MessageBox.Show("reseive answer from server3\n"+info.Buffer.Length);
-                                  
                                     ds = bFormat.Deserialize(ms1) as DataSet;
                                 }
-                                if (ds != null)
+                                if (ds.Tables[0].Rows.Count>0)
                                 {
-                                    //MessageBox.Show("Tests");
-                                    dataGridView1.Invoke(new Action(()=>dataGridView1.DataSource = ds.Tables[0]));
-                                   button1.Invoke(new Action(() => button1.Enabled = true));
+                                    dataGridView1.Invoke(new Action(() => dataGridView1.DataSource = ds.Tables[0]));
+                                    button1.Invoke(new Action(() => button1.Enabled = true));
                                 }
                             }
                         }
                         if(info.Msg=="pass test")
                         {
-                            PassTest pt = new PassTest(info);
-                            pt.ShowDialog();
-                            //send answers
-                            SendMes("get result");
+                            if (info.Questions.Count > 0)
+                            {
+                                PassTest pt = new PassTest(info);
+                                pt.ShowDialog();
+                                //send answers
+                                SendMes("get result");
+                            }
                         }
                         if(info.Msg=="get result" && info.Mark!=null)
                         {
@@ -105,10 +103,11 @@ namespace Client
         private void button2_Click(object sender, EventArgs e)
         {
             //load tests
-            dataGridView1.Rows.Clear();
+           
             if (comboBox1.Items.Count > 0)
             {
-                comboBox1.SelectedIndex = 0;
+                button1.Invoke(new Action(()=>button1.Enabled = false));
+             
                 info.Group = comboBox1.SelectedItem.ToString();
 
                 SendMes("load tests");
@@ -117,8 +116,7 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            info.Mark = null;
-            info.IdTest =Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+            info.IdTest = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
             SendMes("pass test");
         }
     }

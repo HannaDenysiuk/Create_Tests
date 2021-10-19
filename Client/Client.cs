@@ -21,7 +21,7 @@ namespace Client
         {
             InitializeComponent();
         }
-       static bool flag = false;
+        static bool flag = false;
         static Socket sendSocket;
         IPAddress iPAddress;
         TestClient tc;
@@ -73,15 +73,18 @@ namespace Client
                             }
                             if (info.Msg == "isUser")//якщо він є в базі
                             {
-                                //MessageBox.Show("isUser Client");
                                 break;
                             }
+                            else
+                            {
+                                MessageBox.Show(info.Msg);
+                            }
                         }
-                    }//відкриваємо наступне вікно
+                    }
+                    //відкриваємо наступне вікно
                     tc = new TestClient(sendSocket, info);
                     tc.ShowDialog();
                     flag = true;
-                    //return;
                 });
             }
             catch { MessageBox.Show("Something wrong"); }
