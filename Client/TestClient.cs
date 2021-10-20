@@ -62,7 +62,7 @@ namespace Client
                                 {
                                     ds = bFormat.Deserialize(ms1) as DataSet;
                                 }
-                                if (ds.Tables[0].Rows.Count>0)
+                                if (ds!=null)
                                 {
                                     dataGridView1.Invoke(new Action(() => dataGridView1.DataSource = ds.Tables[0]));
                                     button1.Invoke(new Action(() => button1.Enabled = true));

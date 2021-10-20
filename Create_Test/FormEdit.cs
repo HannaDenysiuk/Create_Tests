@@ -80,24 +80,26 @@ namespace Create_Test
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox5.Text != "")
+            Answer an = question.Answer.FirstOrDefault(a => a.IsRight == "True");
+            //якщо нема жодної правильної відповіді
+            if (an != null)
             {
-                question.Answer[listBox2.SelectedIndex].Description = textBox5.Text;
-                question.Answer[listBox2.SelectedIndex].IsRight = checkBox1.Checked.ToString();
-                listBox2.SelectedItem = textBox5.Text;
-
-                listBox2.Items.Clear();
-                foreach (var item in question.Answer)
+                if (textBox5.Text != "")
                 {
-                    listBox2.Items.Add(item.Description);
+                    question.Answer[listBox2.SelectedIndex].Description = textBox5.Text;
+                    question.Answer[listBox2.SelectedIndex].IsRight = checkBox1.Checked.ToString();
+                    listBox2.SelectedItem = textBox5.Text;
+
+                    listBox2.Items.Clear();
+                    foreach (var item in question.Answer)
+                    {
+                        listBox2.Items.Add(item.Description);
+                    }
+                    textBox5.Clear();
                 }
-                textBox5.Clear();
-                Answer an = question.Answer.FirstOrDefault(a => a.IsRight == "True");
-                if (an == null) //якщо нема жодної правильної відповіді
-                    question.Answer[listBox2.SelectedIndex].IsRight = "True";
-               
+                else MessageBox.Show("Answer cann't be null");
             }
-            else MessageBox.Show("Answer cann't be null");
+            else MessageBox.Show("set right variant of asnwers");
         }
 
         private void button3_Click(object sender, EventArgs e)

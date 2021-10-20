@@ -18,7 +18,6 @@ namespace Create_Test
         Test test = new Test();
         Question question;
         XmlSerializer xs = new XmlSerializer(typeof(Test));
-        string path = @"D:\IT_Step_Academy\Exam_CreateTests\Create_Tests\CreateNewTest\bin\Debug\Tests\";
         public FormAdd()
         {
             InitializeComponent();
@@ -70,58 +69,38 @@ namespace Create_Test
         private void nextQuestion_Click(object sender, EventArgs e)
         {
             Answer an = question.Answer.FirstOrDefault(a => a.IsRight == "True");
-            if (an == null) //якщо нема жодної правильної відповіді
-                question.Answer[0].IsRight = "True";
-            //додаємо зформоване запитаття в тест
-            test.Question.Add(question);
+            if (an != null) //якщо нема жодної правильної відповіді
+            {
+                //додаємо зформоване запитаття в тест
+                test.Question.Add(question);
 
-            textboxQuestion.Clear();
-            textBox3.Clear();
-            difficulty.Value = 0;
-            listBox1.Items.Clear();
-            addQuestion.Enabled = true;
-            button1.Enabled = false;
-            button2.Enabled = false;
+                textboxQuestion.Clear();
+                textBox3.Clear();
+                difficulty.Value = 0;
+                listBox1.Items.Clear();
+                addQuestion.Enabled = true;
+                button1.Enabled = false;
+                button2.Enabled = false;
+            }
+            else MessageBox.Show("set right variant of asnwers");
         }
         private void save_Click(object sender, EventArgs e)
         {
             nextQuestion_Click(sender, e); //щоб зберегти останнє запитання
 
-              test.QuestionCount = countQuestion.Value.ToString();
-
+            test.QuestionCount = countQuestion.Value.ToString();
+            saveFileDialog1.Filter = "xml files (*.xml)|*.xml";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
+                using (FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate))
                 {
-                    sw.Write(textBox1.Text);
+                    xs.Serialize(fs, test);
                 }
             }
-
-
-            //if (nameOfFile.Text != "")
-            //{
-            //    nextQuestion_Click(sender,e); //щоб зберегти останнє запитання
-
-            //    test.QuestionCount = countQuestion.Value.ToString();
-            //    path += nameOfFile.Text + ".xml";
-            //    if (File.Exists(path))
-            //        using (FileStream fs = new FileStream(path, FileMode.Truncate))
-            //        {
-            //            xs.Serialize(fs, test);
-            //        }
-            //    else
-            //        using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            //        {
-            //            xs.Serialize(fs, test);
-            //        }
-                //очищаємо інші поля
-                textBox1.Clear();
-                textBox2.Clear();
-                nameOfFile.Clear();
-                countQuestion.Value = 0;
-            //}
-            //else
-            //    MessageBox.Show("Give the file a name without an extension");
+            //очищаємо інші поля
+            textBox1.Clear();
+            textBox2.Clear();
+            countQuestion.Value = 0;
         }
 
         private void button2_Click(object sender, EventArgs e)

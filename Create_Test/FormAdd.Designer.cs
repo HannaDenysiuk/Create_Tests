@@ -29,9 +29,7 @@ namespace Create_Test
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.save = new System.Windows.Forms.Button();
-            this.nameOfFile = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -63,37 +61,19 @@ namespace Create_Test
             ((System.ComponentModel.ISupportInitialize)(this.countQuestion)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(501, 570);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 25);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Name of file:";
-            // 
             // save
             // 
             this.save.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.save.Enabled = false;
-            this.save.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.save.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.save.ForeColor = System.Drawing.Color.Green;
-            this.save.Location = new System.Drawing.Point(1014, 547);
+            this.save.Location = new System.Drawing.Point(407, 547);
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(163, 70);
+            this.save.Size = new System.Drawing.Size(772, 70);
             this.save.TabIndex = 14;
             this.save.Text = "Save Test";
             this.save.UseVisualStyleBackColor = false;
             this.save.Click += new System.EventHandler(this.save_Click);
-            // 
-            // nameOfFile
-            // 
-            this.nameOfFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nameOfFile.Location = new System.Drawing.Point(645, 567);
-            this.nameOfFile.Name = "nameOfFile";
-            this.nameOfFile.Size = new System.Drawing.Size(296, 30);
-            this.nameOfFile.TabIndex = 13;
             // 
             // groupBox5
             // 
@@ -350,9 +330,7 @@ namespace Create_Test
             this.BackColor = System.Drawing.Color.Ivory;
             this.ClientSize = new System.Drawing.Size(1213, 652);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.save);
-            this.Controls.Add(this.nameOfFile);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
@@ -369,15 +347,11 @@ namespace Create_Test
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.countQuestion)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button save;
-        private System.Windows.Forms.TextBox nameOfFile;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;

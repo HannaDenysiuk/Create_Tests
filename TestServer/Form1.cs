@@ -32,7 +32,7 @@ namespace TestServer
         static Socket listeningSocket;// only for listen
        
         static List<Client> ListOfClients = new List<Client>();//хто буде проходити тести
-
+       
         public Form1()
         {
             InitializeComponent();
@@ -193,7 +193,7 @@ namespace TestServer
                     }
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        //відправляємо тест
+                        //відправляємо тести
                         bf.Serialize(ms, info);
                         sendByte = ms.ToArray();
                     }
@@ -259,7 +259,7 @@ namespace TestServer
                         CalculateMark(info);
 
                         //результат здачі тесту треба брати по самій свіжій даті
-                        info.Mark = res.GetAllData().OrderByDescending(d => d.Date.TimeOfDay).FirstOrDefault(u => u.UserId == info.UserId && u.TestId == info.IdTest).Rate;
+                        info.Mark = res.GetAllData().OrderByDescending(d => d.Date).FirstOrDefault(u => u.UserId == info.UserId && u.TestId == info.IdTest).Rate;
 
                         using (var ms = new MemoryStream())
                         {
@@ -296,7 +296,7 @@ namespace TestServer
                 //шукаємо id вірної відповіді
                 int id1 = answers.FirstOrDefault(a => a.QuestionId == item.Id && a.IsRight == true).Id;
                 //треба брати по самій свіжій даті id - відповіть користувача
-                int id2 = userAnswers.GetAllData().OrderByDescending(d => d.Date.TimeOfDay).FirstOrDefault(u => u.Answer.QuestionId == item.Id).Answer.Id;
+                int id2 = userAnswers.GetAllData().OrderByDescending(d => d.Date).FirstOrDefault(u => u.Answer.QuestionId == item.Id).Answer.Id;
                 if (id1 != id2)
                 {
                     failed += item.Difficalty;//рахуємо вагу невірних відповідей
@@ -305,8 +305,8 @@ namespace TestServer
 
             //рахуємо результат
             mark = (value - failed) * 100 / value;
-           
-            //add to data base
+
+            //add Result to data base
             res.Add(new Result()
             {
                 Date = DateTime.Now,

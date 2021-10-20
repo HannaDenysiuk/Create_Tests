@@ -20,21 +20,26 @@ namespace Client
             InitializeComponent();
         }
         static Info info;
+        static int num = 0;
         public PassTest(Info inf)
         {
             InitializeComponent();
             info = inf;
+            num = inf.Questions.Count();
             info.UserAnswers = new List<string>();
             textBox1.Text = info.Questions.First().Value.ToString();
             foreach (var item in info.Answers.First().Value)
             {
                 listBox1.Items.Add(item.ToString());
             }
+            label3.Text = "1 / " + num.ToString();
         }
         private void NextQuestion_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem!=null)
             {
+                label3.Text = info.Questions.Count().ToString() + " / " + num.ToString();
+
                 //дописувати в інфо відповіді
                 info.UserAnswers.Add(listBox1.SelectedItem.ToString());
 
