@@ -50,7 +50,7 @@ namespace Client
             // NextQuestion
             // 
             this.NextQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.NextQuestion.Location = new System.Drawing.Point(51, 523);
+            this.NextQuestion.Location = new System.Drawing.Point(51, 530);
             this.NextQuestion.Name = "NextQuestion";
             this.NextQuestion.Size = new System.Drawing.Size(675, 67);
             this.NextQuestion.TabIndex = 1;

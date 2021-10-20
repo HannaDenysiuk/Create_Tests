@@ -87,7 +87,8 @@ namespace Create_Test
         private void save_Click(object sender, EventArgs e)
         {
             nextQuestion_Click(sender, e); //щоб зберегти останнє запитання
-
+            test.Author = textBox1.Text;
+            test.TestName = textBox2.Text;
             test.QuestionCount = countQuestion.Value.ToString();
             saveFileDialog1.Filter = "xml files (*.xml)|*.xml";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
